@@ -1,31 +1,43 @@
 import random
+from typing import *
 
 class Card:
-    def __init__(self, number, suit):
+    # this method creates a card (an instance of the Card class)
+    # each card should have a number and a suit
+    def __init__(self, number: int, suit: str) -> "Card":
         self.number = number
         self.suit = suit
-        
-    def add_cards(self, card_list):
+    
+    # this method should take in a list of cards and add them up
+    # based on their self.number attribute and return an int
+    # value
+    def add_cards(self, card_list: List["Card"]) -> int:
         for card in card_list:
             print("hi")
+        return 0
     
     # this function should be able to print out a card
-    # in the for "Ace of Spades" if given number = "1"
+    # in the for "Ace of Spades" if given number = 1
     # and suit = "Spade"
     def __str__(self):
-        if (self.number == "11"):
+        if (self.number == 11):
             return "Jack of %s" % (self.suit)
-        if (self.number == "12"):
+        if (self.number == 12):
             return "Queen of %s" % (self.suit)
-        if (self.number == "13"):
+        if (self.number == 13):
             return "King of %s" % (self.suit)
-        if (self.number == "1"):
+        if (self.number == 1):
             return "Ace of %s" % (self.suit)
-        return "%s of %s" % (self.number, self.suit)
+        return "%d of %s" % (self.number, self.suit)
 
 class Deck:
-    def __init__(self):
-        numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"]
+    # this function creates a deck (an instance of the deck class)
+    # and provides the deck capacities that a deck should have
+    # e.g. a list of cards in the deck, a list of cards outside of
+    # the deck, and perhaps a boolean telling us if the deck is 
+    # empty. The attributes are not, however, limited to these
+    def __init__(self) -> "Deck":
+        numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
         suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
         deck = []
         for s in suits:
@@ -33,75 +45,57 @@ class Deck:
                 cur_card = Card(n, s)
                 deck.append(cur_card)
         self.deck = deck
+        self.deck_size = 52
         self.empty = False
         self.discard = []
     
-    # returns a list with the drawn cards, undrawn
+    # this function returns a list with the drawn cards. Undrawn
     # remain in the deck and the drawn are discarded
-    def draw(self, n):
-        if (len(self.deck) <= n):
+    def draw(self, n: int) -> List[Card]:
+        if (self.deck_size < n):
             print("deck is empty")
             return None
         drawn = []
         while n > 0:
             drawn.append(self.deck.pop())
             n = n - 1
+            self.deck_size = self.deck_size - 1
         self.discard = self.discard + drawn
+        print(self.deck_size)
         return drawn
     
-    # due to out of bound errors, the last 4 cards currently don't shuffle
-    def shuffle(self):
-        op_deck = self.deck
+    # this function should 
+    def shuffle(self) -> "Deck":
+        deck = self.deck
         baseline = 2
-        for n in range(40):
-            # c1 and c2 must always remain within 0 and 51
-            c1 = random.randint(baseline + 1, n + 3)
+        for n in range(2, self.deck_size):
+            c1 = random.randint(baseline, n)
             c2 = random.randint(1, baseline)
-            temp = op_deck[c1]
-            op_deck[c1] = op_deck[c2]
-            op_deck[c2] = temp
+            temp = deck[c1]
+            deck[c1] = deck[c2]
+            deck[c2] = temp
             baseline += 1
     
+    # this is a 
     def print(self):
         for card in self.deck:
             print(card)
     
-    def __str__(self):
-        return None
+    
+    
+    def __str__(self) -> List[Card]:
+        return "\n".join(print(x) for x in self.deck)
     
     def get_deck(self):
         return self.deck
     
     def get_discard(self):
         return self.discard
-
-def main():
-    print("Let's play a game of BlackJack\n")
-    playdeck = Deck()
-    playdeck.shuffle()
-    print("How many players are there?\n")
-    n_players = input("number = ")
-    player_hands = []
-    for p in range(int(n_players)):
-        player_hands.append(playdeck.draw(2))
-    print("Your hand is ")
-    for c in player_hands[-1]:
-        print(c)
     
-    # draw again
-    while True:
-        print("Would you like to draw another card?")
-        draw_bool = input("\'Yes\' or \'No\'? ").lower()
-        if draw_bool == "no":
-            break
-        else:
-            player_hands[-1] = player_hands[-1] + playdeck.draw(1)
-            print("Your hand is\n")
-            for c in player_hands[-1]:
-                print(c)
-            # opponents' turns
-            # for opponent in range(n_players - 1):
-            #     player_hands[opponent]
+    def get_empty(self):
+        return self.empty
+
+### test code
 
 deck = Deck()
 deck.print()
@@ -113,4 +107,4 @@ deck.shuffle()
 print("if we draw again, we draw")
 for c in deck.draw(10):
     print(c)
-main()
+print(deck)
