@@ -9,6 +9,7 @@ __Instructions__
 - Copy the "cloning url" and open a CLI, type <pre><code>>> git clone https://github.com/lukechn99/cards.git</code></pre>
 - Change your working directory into the cloned repo by using <pre><code>>> cd cards</code></pre>
 - Use command <pre><code>>> python blackjack.py</code></pre> to play blackjack
+- Once you are done trying out the game, change directory into "your_code" with <pre><code>>> cd your_code</code></pre> to fill in the definitions of functions so that you can recreate, and even improve upon, the card games!
 
 ## Features of Python used:
 - [Classes](https://www.w3schools.com/python/python_classes.asp)
