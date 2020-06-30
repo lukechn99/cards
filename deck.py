@@ -64,8 +64,10 @@ class Deck:
         print(self.deck_size)
         return drawn
     
-    # this function should 
-    def shuffle(self) -> "Deck":
+    # this function should take in a deck, create a copy of it
+    # use some sort of algorithm to shuffle the copy, and then
+    # hand that back to self.deck
+    def shuffle(self):
         deck = self.deck
         baseline = 2
         for n in range(2, self.deck_size):
@@ -107,4 +109,4 @@ deck.shuffle()
 print("if we draw again, we draw")
 for c in deck.draw(10):
     print(c)
-print(deck)
+# print(deck)
