@@ -8,13 +8,11 @@ class Card:
         self.number = number
         self.suit = suit
     
-    # this method should take in a list of cards and add them up
-    # based on their self.number attribute and return an int
-    # value
-    def add_cards(self, card_list: List["Card"]) -> int:
-        for card in card_list:
-            print("hi")
-        return 0
+    def get_number(self):
+        return self.number
+    
+    def get_suit(self):
+        return self.suit
     
     # this function should be able to print out a card
     # in the for "Ace of Spades" if given number = 1
